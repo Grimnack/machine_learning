@@ -17,7 +17,7 @@ taille_max = int(max(X1)) + 1
 
 
 
-plt.hist(taille_h,bins=nbins,color="blue")
+#plt.hist(taille_h,bins=nbins,color="blue")
 #plt.hist(taille_f,bins=nbins,color="pink")
 
 # LES Variables X1 ET X2 ne sont pas indépendantes car on observe bien
@@ -60,11 +60,15 @@ marginale_femmes = loi_marginale(taille_f)
 marginale_x1 = loi_marginale(X1)
 taille_frequente = mode(marginale_x1)
 taille_moyenne = esperance(marginale_x1,len(X1))
+taille_moyenne_homme = esperance(marginale_hommes,len(taille_h))
 taille_mediane = mediane(marginale_x1,len(X1))
 ecartType_hommes = np.std(taille_h)
 ecartType_femmes = np.std(taille_f)
 mm_centre_ordre3_h = s.skew(taille_h)
 mm_centre_ordre3_f = s.skew(taille_f)
+
+marginale_hommes_nomalised = np.array([x/len(marginale_hommes) for x in marginale_hommes])
+
 
 # Question 8 calculer la Negative Log Likelyhood
 listeMu = [x for x in range(140,220,1)]
@@ -102,5 +106,7 @@ def chercheTeta(listeMu,listeSigma,dataset) :
 x_gauss = [x for x in range(0,taille_max)]
 y_gauss = [gauss(175,16.8,x) for x in range(0,taille_max)]
 
-plt.plot(x_gauss,y_gauss,color="red") 
+plt.bar(x_gauss,marginale_hommes_nomalised)
+plt.plot(x_gauss,y_gauss,color="red")
+ 
 
